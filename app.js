@@ -1,34 +1,19 @@
-/* 
-Displays two elements in a Array
-First value: File path to where Node.js is installed 
-Second value: File path we just executed
-*/
+// using the file system module
+const fs = require('fs');
 
-/*
-In Node.js the 'process' is a global object represents everything going on with this particular app. Similarly to document or window in the browser  
-*/
+// we use the require statement to include the generatePage() function 
+// we use the require statement to receive the exported functions 
+const generatePage = require('./src/page-template.js');
 
-// var commandLineArgs = process.argv;
-// console.log(commandLineArgs);
+// array, that hold the user command-line arguments 
+const profileDataArgs = process.argv.slice(2, process.argv.length);
 
+const [name,github] = profileDataArgs; // assignment destructing
 
+// generating the html file
+fs.writeFile('index.html', generatePage(name, github), err => {
+    // if there is an error then it will throw an err
+    if (err) throw new Error(err);
 
-const profileDataArgs = process.argv.slice(2);
-// console.log(profileDataArgs);
-
-
-// function that can take an array of command-line arguments
-// here we are printing them out one by one 
-const printProfileData = profileDataArr => {
-    // This...
-    for (let i = 0; i < profileDataArr.length; i+= 1) {
-        console.log(profileDataArr[i]);
-    }
-
-    console.log('================');
-
-    // Is the same as this...
-    profileDataArr.forEach((profileItem) => console.log(profileItem));
-};
-
-printProfileData(profileDataArgs);
+    console.log('Portfolio complete! Check out index.html to see the output!');
+});
