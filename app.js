@@ -1,7 +1,11 @@
 // importing the inquirer package 
 const inquirer = require('inquirer');
+
 // importing the file system module
-const fs = require('fs');
+// const fs = require('fs');
+
+//importing functions using object destructuring
+const {writeFile, copyFile} = require('./utils/generate-file.js');
 
 // we use the require statement to receive the exported functions, include the generatePage() function
 // this expression assigns the HTML template function in page-template.js to the variable generatePage
@@ -151,17 +155,43 @@ const promptUser = () => {
     };
 
 
-    promptUser()
+        promptUser()
         // this is a promise chain, it allows you to attach multiple .then() methods to one another
         .then(promptProject)
         .then(portfolioData => {
-            const pageHTML = generatePage(portfolioData);
+             return generatePage(portfolioData);
+            })
+            .then(pageHTML => {
+                return writeFile(pageHTML);
+            })
+            .then(writeFileResponse => {
+                console.log(writeFileResponse);
+                return copyFile();
+            })
+            .then(copyFileResponse => {
+                console.log(copyFileResponse);
+            })
+            .catch(err => {
+                console.log(err);
+            }); 
+        
+            // const pageHTML = generatePage(portfolioData);
 
-            // generating the html file, has 3 parameters
-            fs.writeFile('./index.html', pageHTML, err => {
-                // if there is an error then it will throw an err
-                if (err) throw new Error(err);
-                console.log('Page created! Check out index.html in this directory to see it!');
-            });
-        });
-     
+            // // generating the html file, has 3 parameters
+            // fs.writeFile('./dist/index.html', pageHTML, err => {
+            //     // if there is an error then it will throw an err
+            //     if (err) {
+            //         console.log(err);
+            //         return;
+            //     }
+            //     console.log('Page created! Check out index.html in this directory to see it!');
+
+            //     fs.copyFile('./src/style.css', './dist/style.css', err => {
+            //         if (err) {
+            //             console.log(err);
+            //             return;
+            //         }
+            //         console.log('Style sheet copied successfully!');
+            //     });
+            // });
+        
