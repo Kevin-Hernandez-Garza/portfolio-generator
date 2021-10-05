@@ -12,8 +12,8 @@ const generateAbout = aboutText => {
       `;
 };
 
-// creating the projects section
-// returning a template literal
+/* creating the projects section
+ returning a template literal */
 const generateProjects = projectsArr => {
   return `
     <section class="my-3" id="portfolio">
@@ -58,8 +58,8 @@ const generateProjects = projectsArr => {
 };
 
 module.exports = templateData => {
-    // destructuring statement
-    // destructure projects, about data, and create an object called header containing the remaining data from templateData based on their property key names
+    /* destructuring statement
+    destructure projects, about data, and create an object called header containing the remaining data from templateData based on their property key names */
     const { projects, about, ...header } = templateData; 
 
     return `

@@ -1,18 +1,15 @@
 // importing the inquirer package 
 const inquirer = require('inquirer');
 
-// importing the file system module
-// const fs = require('fs');
-
 //importing functions using object destructuring
 const {writeFile, copyFile} = require('./utils/generate-file.js');
 
-// we use the require statement to receive the exported functions, include the generatePage() function
-// this expression assigns the HTML template function in page-template.js to the variable generatePage
+/* we use the require statement to receive the exported functions, include the generatePage() function
+this expression assigns the HTML template function in page-template.js to the variable generatePage */
 const generatePage = require('./src/page-template');
 
-// we are wrapping it inside the promptUser function so it's able to be invoked on demand 
-// we are calling a function that returns the result of inquirer.prompt which is a promise
+/* we are wrapping it inside the promptUser function so it's able to be invoked on demand 
+we are calling a function that returns the result of inquirer.prompt which is a promise */
 const promptUser = () => {
     return inquirer.prompt([
         // array of objects
@@ -76,8 +73,8 @@ const promptUser = () => {
             `
         );
 
-        // added the projects array to the portfolioData object and initialized it as an empty array in every function call
-        // If there's no 'projects' array property, create one
+        /* added the projects array to the portfolioData object and initialized it as an empty array in every function call.
+        If there's no 'projects' array property, create one */
         if(!portfolioData.projects) {
         portfolioData.projects = [];
         }
@@ -174,24 +171,4 @@ const promptUser = () => {
             .catch(err => {
                 console.log(err);
             }); 
-        
-            // const pageHTML = generatePage(portfolioData);
-
-            // // generating the html file, has 3 parameters
-            // fs.writeFile('./dist/index.html', pageHTML, err => {
-            //     // if there is an error then it will throw an err
-            //     if (err) {
-            //         console.log(err);
-            //         return;
-            //     }
-            //     console.log('Page created! Check out index.html in this directory to see it!');
-
-            //     fs.copyFile('./src/style.css', './dist/style.css', err => {
-            //         if (err) {
-            //             console.log(err);
-            //             return;
-            //         }
-            //         console.log('Style sheet copied successfully!');
-            //     });
-            // });
         
